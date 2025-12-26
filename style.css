@@ -1,126 +1,116 @@
-/* Reset & Body */
-body, html {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-  background: #f9f9f9;
-}
-
-/* Sidebar */
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 220px;
-  height: 100%;
-  background: #0a4cff;
-  display: flex;
-  flex-direction: column;
-  transition: width 0.3s;
-  overflow: hidden;
-  color: white;
-  z-index: 10;
-}
-
-.sidebar.collapsed {
-  width: 60px;
-}
-
-.sidebar .sidebar-toggle {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 24px;
-  padding: 15px;
-  cursor: pointer;
-}
-
-.sidebar a {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  color: white;
-  padding: 12px 15px;
-  transition: background 0.2s;
-}
-
-.sidebar a:hover {
-  background: rgba(255,255,255,0.2);
-}
-
-.sidebar a img.icon {
-  width: 24px;
-  margin-right: 12px;
-}
-
-.sidebar.collapsed a span {
-  display: none;
-}
-
-.sidebar a.active {
-  background: rgba(255,255,255,0.3);
-  font-weight: bold;
-}
-
-/* Top Bar */
-.top-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 60px;
-  background: #0a4cff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  z-index: 100; /* above everything */
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-/* Logo and page title */
-.top-bar .logo {
-  position: absolute;
-  left: 20px;
-  font-size: 24px;
-  font-weight: bold;
-}
-
-.top-bar .page-title {
-  font-size: 22px;
-  font-weight: bold;
-}
-
-/* Sidebar starts BELOW top bar */
-.sidebar {
-  position: fixed;
-  top: 60px;  /* push below top bar */
-  left: 0;
-  width: 220px;
-  height: calc(100% - 60px); /* fill remaining height */
-  background: #0a4cff;
-  display: flex;
-  flex-direction: column;
-  transition: width 0.3s;
-  overflow: hidden;
-  color: white;
-  z-index: 50;
-}
-
-.sidebar.collapsed {
-  width: 60px;
-}
-
-/* Main content below top bar */
-main.content {
-  margin-left: 220px;
-  margin-top: 60px; /* push below top bar */
-  padding: 20px 40px;
-  transition: margin-left 0.3s;
-}
-
-.sidebar.collapsed ~ main.content {
-  margin-left: 60px;
-}
-
-}
+/* General */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Sidebar */
+  .sidebar {
+    width: 200px;
+    background: #0a4cff;
+    color: white;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .sidebar a {
+    color: white;
+    text-decoration: none;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .sidebar a:hover {
+    background: #083ac9;
+  }
+  
+  /* Top Bar */
+  .top-bar {
+    position: fixed;
+    left: 200px;
+    top: 0;
+    right: 0;
+    height: 60px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    z-index: 10;
+  }
+  
+  .logo {
+    color: #0a4cff;
+    font-weight: bold;
+    font-size: 20px;
+  }
+  
+  /* Page title centered */
+  .page-title {
+    flex: 1;
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+  }
+  
+  /* Main content */
+  main.content {
+    margin-left: 200px;
+    margin-top: 60px;
+    padding: 20px;
+  }
+  
+  /* ===== Profile menu only (top-right) ===== */
+  .profile-menu {
+    position: relative;
+  }
+  
+  .profile-circle {
+    width: 40px;
+    height: 40px;
+    background: #0a4cff;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .profile-dropdown {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    right: 0;
+    top: 50px;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    min-width: 120px;
+    z-index: 100;
+  }
+  
+  .profile-dropdown.show {
+    display: flex;
+  }
+  
+  .profile-dropdown button {
+    padding: 10px 15px;
+    border: none;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+  }
+  
+  .profile-dropdown button:hover {
+    background: #f0f0f0;
+  }
+  
