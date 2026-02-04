@@ -5,17 +5,8 @@
 
 // ===========================
 // Photo Data Configuration
-// Categories: Nature, Still Life, Urban, Animals, Portrait
-// ===========================
-// ===========================
-// Photo Data Configuration
 // Loaded from index.html (window.sitePhotos)
 // ===========================
-const photos = [
-    { src: 'images/logo.jpg', alt: 'BBird Logo', title: 'Logo', collection: 'Main' },
-    { src: 'images/Beckham.jpg', alt: 'Beckham Harris', title: 'Beckham', collection: 'Portfolio' },
-    // Add more photos here
-];
 
 // Fixed Categories (Total 5 including All: All, Nature, Still Life, Urban, Portrait)
 const GALLERY_CATEGORIES = ['Nature', 'Still Life', 'Urban', 'Portrait'];
