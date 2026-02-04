@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BBird Photography</title>
+    <meta name="description" content="Portfolio of BBird Photography - Capturing moments, nature, and portraits.">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Sidebar Navigation -->
+    <aside id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <img src="images/logo.jpg" alt="BBird Logo" class="logo-img">
+                <span class="logo-text">BBird</span>
+            </div>
+            <button id="menu-toggle" class="menu-toggle" aria-label="Toggle Menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+
+        <nav class="nav-menu">
+            <ul>
+                <li>
+                    <a href="#home" class="nav-link active" data-target="home">
+                        <span class="icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                            </svg>
+                        </span>
+                        <span class="text">Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#gallery" class="nav-link" data-target="gallery">
+                        <span class="icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                <polyline points="21 15 16 10 5 21"></polyline>
+                            </svg>
+                        </span>
+                        <span class="text">Gallery</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#collections" class="nav-link" data-target="collections">
+                        <span class="icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z">
+                                </path>
+                            </svg>
+                        </span>
+                        <span class="text">Collections</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#about" class="nav-link" data-target="about">
+                        <span class="icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                        </span>
+                        <span class="text">About</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#contact" class="nav-link" data-target="contact">
+                        <span class="icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
+                                </path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                        </span>
+                        <span class="text">Contact</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+            <p>&copy; <span id="year"></span> BBird</p>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main id="main-content" class="main-content">
+
+        <!-- Home Section -->
+        <section id="home" class="section active-section">
+            <div class="hero">
+                <div class="hero-text">
+                    <h1>Welcome to BBird Photography</h1>
+                    <p>Capturing the world from a higher perspective.</p>
+                    <button class="cta-button"
+                        onclick="document.querySelector('[data-target=\'gallery\']').click()">View Gallery</button>
+                </div>
+            </div>
+
+            <div class="featured-section">
+                <h2>Featured Work</h2>
+                <!-- Featured Photos populated by JS -->
+                <div id="featured-grid" class="gallery-grid"></div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="gallery" class="section">
+            <header class="section-header">
+                <h2>Full Gallery</h2>
+                <div class="filter-controls">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <!-- Other filters added by JS -->
+                </div>
+            </header>
+            <div id="gallery-grid" class="gallery-grid">
+                <!-- Javascript will populate this -->
+            </div>
+        </section>
+
+        <!-- Collections Section -->
+        <section id="collections" class="section">
+            <header class="section-header">
+                <h2>Collections</h2>
+            </header>
+            <div id="collections-grid" class="collections-grid">
+                <!-- Javascript will populate this -->
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section">
+            <header class="section-header">
+                <h2>About Me</h2>
+            </header>
+            <div id="about-content" class="content-placeholder">
+                <div class="about-container">
+                    <div class="about-image-placeholder">
+                        <img src="images/logo.jpg" alt="Photographer" style="max-width: 200px; border-radius: 50%;">
+                    </div>
+                    <div class="about-text">
+                        <h3>Hi, I'm the photographer behind BBird.</h3>
+                        <p>I specialize in capturing moments that tell a story. From vast landscapes to intimate
+                            portraits, my goal is to freeze time in the most beautiful way possible.</p>
+                        <p><em>(Edit this text in the index.html file)</em></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section">
+            <header class="section-header">
+                <h2>Get In Touch</h2>
+            </header>
+            <div id="contact-content" class="content-placeholder">
+                <div class="contact-card">
+                    <p>Interested in working together? Reach out!</p>
+                    <ul class="contact-details">
+                        <li><strong>Email:</strong> Beckham@robbinharris.com</li>
+                    </ul>
+                    <p><em>(Edit this text in the index.html file)</em></p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="lightbox">
+        <span class="close-lightbox">&times;</span>
+        <img class="lightbox-content" id="lightbox-img">
+        <div id="lightbox-caption"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
