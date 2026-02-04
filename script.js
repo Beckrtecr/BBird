@@ -5,73 +5,9 @@
 
 // ===========================
 // Photo Data Configuration
-// Add your photos here to update the site
+// Start empty as per user request
 // ===========================
-const photos = [
-    {
-        src: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        full: "https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
-        title: "Mountain Solitude",
-        collection: "Nature",
-        alt: "Hiker on a mountain ridge at sunset"
-    },
-    {
-        src: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        full: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
-        title: "Looking Through",
-        collection: "Portraits",
-        alt: "Eye closeup photography"
-    },
-    {
-        src: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        full: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
-        title: "Forest Mist",
-        collection: "Nature",
-        alt: "Misty forest path"
-    },
-    {
-        src: "https://images.unsplash.com/photo-1551316679-9c6ae9dec224?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        full: "https://images.unsplash.com/photo-1551316679-9c6ae9dec224?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
-        title: "Urban Angles",
-        collection: "Architecture",
-        alt: "Modern architecture building detail"
-    },
-    {
-        src: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        full: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
-        title: "Red Dress",
-        collection: "Portraits",
-        alt: "Woman in red dress posing artistically"
-    },
-    {
-        src: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        full: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
-        title: "Fields of Gold",
-        collection: "Nature",
-        alt: "Golden wheat field sunset"
-    },
-    {
-        src: "https://images.unsplash.com/photo-1518005052357-e987154039d2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        full: "https://images.unsplash.com/photo-1518005052357-e987154039d2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
-        title: "City Lights",
-        collection: "Architecture",
-        alt: "City skyline at night"
-    },
-    {
-        src: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        full: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
-        title: "Profile",
-        collection: "Portraits",
-        alt: "Side profile portrait of a woman"
-    },
-    {
-        src: "https://images.unsplash.com/photo-1426604966848-d7adac402bff?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-        full: "https://images.unsplash.com/photo-1426604966848-d7adac402bff?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
-        title: "High Peaks",
-        collection: "Nature",
-        alt: "Rugged mountain peaks"
-    }
-];
+let photos = [];
 
 // ===========================
 // Initialization & Navigation
@@ -80,14 +16,19 @@ document.addEventListener('DOMContentLoaded', () => {
     initYear();
     initNavigation();
     initSidebar();
+
+    // Initial Render (will be empty or show placeholder message)
     renderFeatured();
     renderGallery('all');
     renderCollections();
+
     initLightbox();
+    initImport();
 });
 
 function initYear() {
-    document.getElementById('year').textContent = new Date().getFullYear();
+    const yearEl = document.getElementById('year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
 }
 
 // Sidebar Toggle Logic
@@ -95,25 +36,27 @@ function initSidebar() {
     const menuToggle = document.getElementById('menu-toggle');
     const sidebar = document.getElementById('sidebar');
 
-    menuToggle.addEventListener('click', () => {
-        if (window.innerWidth <= 768) {
-            // Mobile: Toggle overlay
-            sidebar.classList.toggle('mobile-open');
-        } else {
-            // Desktop: Toggle collapse
-            sidebar.classList.toggle('collapsed');
-        }
-    });
-
-    // Close mobile sidebar when clicking a link
-    const navLinks = document.querySelectorAll('.nav-link');
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
+    if (menuToggle && sidebar) {
+        menuToggle.addEventListener('click', () => {
             if (window.innerWidth <= 768) {
-                sidebar.classList.remove('mobile-open');
+                // Mobile: Toggle overlay
+                sidebar.classList.toggle('mobile-open');
+            } else {
+                // Desktop: Toggle collapse
+                sidebar.classList.toggle('collapsed');
             }
         });
-    });
+
+        // Close mobile sidebar when clicking a link
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.remove('mobile-open');
+                }
+            });
+        });
+    }
 }
 
 // Navigation Logic (SPA Feel)
@@ -125,7 +68,7 @@ function initNavigation() {
         link.addEventListener('click', (e) => {
             e.preventDefault();
             const targetId = link.getAttribute('data-target');
-            
+
             // Update Active State
             links.forEach(l => l.classList.remove('active'));
             link.classList.add('active');
@@ -138,9 +81,70 @@ function initNavigation() {
                 }
             });
 
-            // If navigating to Gallery via "View Gallery" button or otherwise, ensure navigation is updated
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
+    });
+}
+
+// ===========================
+// Import Logic
+// ===========================
+function initImport() {
+    const fileInput = document.getElementById('file-input');
+    const dropzone = document.getElementById('import-dropzone');
+
+    if (!fileInput || !dropzone) return;
+
+    // Handle File Selection via Button
+    fileInput.addEventListener('change', (e) => {
+        handleFiles(e.target.files);
+    });
+
+    // Handle Drag & Drop
+    dropzone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropzone.style.borderColor = 'var(--primary-color)';
+        dropzone.style.backgroundColor = '#f0f9ff';
+    });
+
+    dropzone.addEventListener('dragleave', (e) => {
+        e.preventDefault();
+        dropzone.style.borderColor = '#cbd5e1';
+        dropzone.style.backgroundColor = 'white';
+    });
+
+    dropzone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropzone.style.borderColor = '#cbd5e1';
+        dropzone.style.backgroundColor = 'white';
+        handleFiles(e.dataTransfer.files);
+    });
+}
+
+function handleFiles(files) {
+    if (!files || files.length === 0) return;
+
+    Array.from(files).forEach(file => {
+        if (!file.type.startsWith('image/')) return;
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const newPhoto = {
+                src: e.target.result,
+                full: e.target.result,
+                title: file.name.replace(/\.[^/.]+$/, ""), // Remove extension
+                collection: "Imported", // Default collection for imports
+                alt: file.name
+            };
+
+            photos.push(newPhoto);
+
+            // Re-render
+            renderGallery('all'); // Refresh gallery
+            renderCollections();  // Refresh collections
+            renderFeatured();     // Refresh home
+        };
+        reader.readAsDataURL(file);
     });
 }
 
@@ -151,83 +155,113 @@ function initNavigation() {
 // Render Featured Photos on Home Page
 function renderFeatured() {
     const container = document.getElementById('featured-grid');
-    // Take first 3 photos as featured, or random
+    if (!container) return;
+
+    // Take first 3 photos as featured
     const featuredPhotos = photos.slice(0, 3);
-    
-    container.innerHTML = featuredPhotos.map(photo => createPhotoCard(photo)).join('');
-    attachLightboxListeners(container);
+
+    if (featuredPhotos.length === 0) {
+        container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #888;">No featured photos yet. Import some in the Gallery!</p>';
+    } else {
+        container.innerHTML = featuredPhotos.map(photo => createPhotoCard(photo)).join('');
+        attachLightboxListeners(container);
+    }
 }
 
 // Render Main Gallery
 function renderGallery(filterCategory) {
     const container = document.getElementById('gallery-grid');
     const filterContainer = document.querySelector('.filter-controls');
-    
-    // Generate Filter Buttons dynamically based on available collections
-    const collections = [...new Set(photos.map(p => p.collection))];
-    if (filterContainer.children.length === 1) { // Only 'All' exists
+
+    if (!container) return;
+
+    // Update Filters
+    if (filterContainer) {
+        const collections = [...new Set(photos.map(p => p.collection))];
+
+        // Remove old dynamic buttons (keeping "All")
+        const existingBtns = filterContainer.querySelectorAll('.filter-btn:not([data-filter="all"])');
+        existingBtns.forEach(btn => btn.remove());
+
         collections.forEach(col => {
             const btn = document.createElement('button');
             btn.className = 'filter-btn';
             btn.textContent = col;
             btn.setAttribute('data-filter', col);
+            if (filterCategory === col) btn.classList.add('active');
+
             btn.onclick = () => {
-                // Update active state
                 document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 renderGallery(col);
             };
             filterContainer.appendChild(btn);
         });
-        
-        // Add click listener to 'All' button again to be safe
+
+        // Re-bind All
         const allBtn = filterContainer.querySelector('[data-filter="all"]');
-        allBtn.onclick = () => {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            allBtn.classList.add('active');
-            renderGallery('all');
-        };
+        if (allBtn) {
+            allBtn.onclick = () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                allBtn.classList.add('active');
+                renderGallery('all');
+            };
+        }
     }
 
     // Filter Logic
-    const filteredPhotos = filterCategory === 'all' 
-        ? photos 
+    const filteredPhotos = filterCategory === 'all'
+        ? photos
         : photos.filter(p => p.collection === filterCategory);
 
     // Render Grid
-    container.innerHTML = filteredPhotos.map(photo => createPhotoCard(photo)).join('');
-    attachLightboxListeners(container);
+    if (filteredPhotos.length === 0) {
+        container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #888; margin-top: 20px;">No photos found. Use the import area above to add photos.</p>';
+    } else {
+        container.innerHTML = filteredPhotos.map(photo => createPhotoCard(photo)).join('');
+        attachLightboxListeners(container);
+    }
 }
 
 // Render Collections Page
 function renderCollections() {
     const container = document.getElementById('collections-grid');
+    if (!container) return;
+
     const collections = [...new Set(photos.map(p => p.collection))];
-    
-    container.innerHTML = collections.map(colName => {
-        // Find representative photo (first one in collection)
-        const coverPhoto = photos.find(p => p.collection === colName);
-        const count = photos.filter(p => p.collection === colName).length;
-        
-        return `
-            <div class="collection-card" onclick="openCollection('${colName}')">
-                <img src="${coverPhoto.src}" alt="${colName} Collection" loading="lazy">
-                <div class="collection-info">
-                    <h3>${colName}</h3>
-                    <div class="collection-count">${count} photos</div>
+
+    if (collections.length === 0) {
+        container.innerHTML = '<p style="text-align: center; color: #888;">No collections yet.</p>';
+    } else {
+        container.innerHTML = collections.map(colName => {
+            // Find representative photo (first one in collection)
+            const coverPhoto = photos.find(p => p.collection === colName);
+            const count = photos.filter(p => p.collection === colName).length;
+
+            return `
+                <div class="collection-card" onclick="openCollection('${colName}')">
+                    <img src="${coverPhoto.src}" alt="${colName} Collection" loading="lazy">
+                    <div class="collection-info">
+                        <h3>${colName}</h3>
+                        <div class="collection-count">${count} photos</div>
+                    </div>
                 </div>
-            </div>
-        `;
-    }).join('');
+            `;
+        }).join('');
+    }
 }
 
 // Helper to switch to gallery view filtered by collection
-window.openCollection = function(collectionName) {
+window.openCollection = function (collectionName) {
     // Switch to gallery tab
-    document.querySelector('[data-target="gallery"]').click();
+    const galleryLink = document.querySelector('[data-target="gallery"]');
+    if (galleryLink) galleryLink.click();
+
     // Simulate click on filter button
-    const filterBtn = document.querySelector(`.filter-btn[data-filter="${collectionName}"]`);
-    if (filterBtn) filterBtn.click();
+    setTimeout(() => {
+        const filterBtn = document.querySelector(`.filter-btn[data-filter="${collectionName}"]`);
+        if (filterBtn) filterBtn.click();
+    }, 100);
 };
 
 function createPhotoCard(photo) {
@@ -251,9 +285,13 @@ function initLightbox() {
     const lightboxCaption = document.getElementById('lightbox-caption');
     const closeBtn = document.querySelector('.close-lightbox');
 
-    closeBtn.addEventListener('click', () => {
-        lightbox.classList.remove('active-lightbox');
-    });
+    if (!lightbox) return;
+
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            lightbox.classList.remove('active-lightbox');
+        });
+    }
 
     // Close on background click
     lightbox.addEventListener('click', (e) => {
@@ -273,10 +311,10 @@ function attachLightboxListeners(container) {
         item.addEventListener('click', () => {
             const fullSrc = item.getAttribute('data-full');
             const title = item.getAttribute('data-title');
-            
-            lightboxImg.src = fullSrc;
-            lightboxCaption.textContent = title;
-            lightbox.classList.add('active-lightbox');
+
+            if (lightboxImg) lightboxImg.src = fullSrc;
+            if (lightboxCaption) lightboxCaption.textContent = title;
+            if (lightbox) lightbox.classList.add('active-lightbox');
         });
     });
 }
