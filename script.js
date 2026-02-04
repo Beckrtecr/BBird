@@ -9,7 +9,7 @@
 // ===========================
 
 // Initialize photos array from window.sitePhotos
-let photos = [];
+let photos = window.sitePhotos || [];
 
 // Fixed Categories (Total 5 including All: All, Nature, Still Life, Urban, Portrait)
 const GALLERY_CATEGORIES = ['Nature', 'Still Life', 'Urban', 'Portrait'];
@@ -18,8 +18,10 @@ const GALLERY_CATEGORIES = ['Nature', 'Still Life', 'Urban', 'Portrait'];
 // Initialization & Navigation
 // ===========================
 document.addEventListener('DOMContentLoaded', () => {
-    // Load photos from window.sitePhotos
-    photos = window.sitePhotos || [];
+    // Ensure photos are loaded from window.sitePhotos
+    if (window.sitePhotos) {
+        photos = window.sitePhotos;
+    }
 
     initYear();
     initNavigation();
