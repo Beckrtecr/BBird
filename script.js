@@ -5,9 +5,97 @@
 
 // ===========================
 // Photo Data Configuration
-// Start empty as per user request
+// Categories: Nature, Still Life, Urban, Animals, Portrait
 // ===========================
-let photos = [];
+const photos = [
+    {
+        src: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=800&q=80",
+        full: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1600&q=80",
+        title: "Misty Mountains",
+        collection: "Nature",
+        alt: "Misty Mountains landscape"
+    },
+    {
+        src: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=800&q=80",
+        full: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1600&q=80",
+        title: "Forest Path",
+        collection: "Nature",
+        alt: "Sunlight through forest trees"
+    },
+    {
+        src: "https://images.unsplash.com/photo-1453791052107-5c843da62d97?auto=format&fit=crop&w=800&q=80",
+        full: "https://images.unsplash.com/photo-1453791052107-5c843da62d97?auto=format&fit=crop&w=1600&q=80",
+        title: "Deep Woods",
+        collection: "Nature",
+        alt: "Deep mysterious woods"
+    },
+    {
+        src: "https://images.unsplash.com/photo-1496545672447-f699b503d270?auto=format&fit=crop&w=800&q=80",
+        full: "https://images.unsplash.com/photo-1496545672447-f699b503d270?auto=format&fit=crop&w=1600&q=80",
+        title: "Vintage Camera",
+        collection: "Still Life",
+        alt: "Vintage camera on table"
+    },
+    {
+        src: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80",
+        full: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1600&q=80",
+        title: "Workspace",
+        collection: "Still Life",
+        alt: "Minimalist workspace"
+    },
+    {
+        src: "https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?auto=format&fit=crop&w=800&q=80",
+        full: "https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?auto=format&fit=crop&w=1600&q=80",
+        title: "Morning Coffee",
+        collection: "Still Life",
+        alt: "Coffee cup on wooden table"
+    },
+    {
+        src: "https://images.unsplash.com/photo-1449824913929-2b3a64192581?auto=format&fit=crop&w=800&q=80",
+        full: "https://images.unsplash.com/photo-1449824913929-2b3a64192581?auto=format&fit=crop&w=1600&q=80",
+        title: "City Lights",
+        collection: "Urban",
+        alt: "City skyline at night"
+    },
+    {
+        src: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=800&q=80",
+        full: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=1600&q=80",
+        title: "Urban Canyon",
+        collection: "Urban",
+        alt: "Tall buildings in city"
+    },
+    {
+        src: "https://images.unsplash.com/photo-1475855581690-80accde3ae2b?auto=format&fit=crop&w=800&q=80",
+        full: "https://images.unsplash.com/photo-1475855581690-80accde3ae2b?auto=format&fit=crop&w=1600&q=80",
+        title: "Street Life",
+        collection: "Urban",
+        alt: "Busy city street"
+    },
+    {
+        src: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=800&q=80",
+        full: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=1600&q=80",
+        title: "Portrait Mood",
+        collection: "Portrait",
+        alt: "Moody portrait of woman"
+    },
+    {
+        src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80",
+        full: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=1600&q=80",
+        title: "Male Portrait",
+        collection: "Portrait",
+        alt: "Portrait of man smiling"
+    },
+    {
+        src: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=800&q=80",
+        full: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=1600&q=80",
+        title: "Studio Shot",
+        collection: "Portrait",
+        alt: "High contrast portrait"
+    }
+];
+
+// Fixed Categories (Total 5 including All: All, Nature, Still Life, Urban, Portrait)
+const GALLERY_CATEGORIES = ['Nature', 'Still Life', 'Urban', 'Portrait'];
 
 // ===========================
 // Initialization & Navigation
@@ -17,13 +105,12 @@ document.addEventListener('DOMContentLoaded', () => {
     initNavigation();
     initSidebar();
 
-    // Initial Render (will be empty or show placeholder message)
+    // Initial Render
     renderFeatured();
     renderGallery('all');
     renderCollections();
 
     initLightbox();
-    initImport();
 });
 
 function initYear() {
@@ -63,11 +150,38 @@ function initSidebar() {
 function initNavigation() {
     const links = document.querySelectorAll('.nav-link');
     const sections = document.querySelectorAll('.section');
+    const topBarTitle = document.querySelector('.center-text');
+
+    // Set initial title (Home)
+    if (topBarTitle) topBarTitle.textContent = "Home";
 
     links.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
             const targetId = link.getAttribute('data-target');
+
+            // Update Top Bar Text
+            if (topBarTitle) {
+                switch (targetId) {
+                    case 'home':
+                        topBarTitle.textContent = "Home";
+                        break;
+                    case 'gallery':
+                        topBarTitle.textContent = "Gallery";
+                        break;
+                    case 'collections':
+                        topBarTitle.textContent = "Collections";
+                        break;
+                    case 'about':
+                        topBarTitle.textContent = "About";
+                        break;
+                    case 'contact':
+                        topBarTitle.textContent = "Contact";
+                        break;
+                    default:
+                        topBarTitle.textContent = "Home";
+                }
+            }
 
             // Update Active State
             links.forEach(l => l.classList.remove('active'));
@@ -87,68 +201,6 @@ function initNavigation() {
 }
 
 // ===========================
-// Import Logic
-// ===========================
-function initImport() {
-    const fileInput = document.getElementById('file-input');
-    const dropzone = document.getElementById('import-dropzone');
-
-    if (!fileInput || !dropzone) return;
-
-    // Handle File Selection via Button
-    fileInput.addEventListener('change', (e) => {
-        handleFiles(e.target.files);
-    });
-
-    // Handle Drag & Drop
-    dropzone.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        dropzone.style.borderColor = 'var(--primary-color)';
-        dropzone.style.backgroundColor = '#f0f9ff';
-    });
-
-    dropzone.addEventListener('dragleave', (e) => {
-        e.preventDefault();
-        dropzone.style.borderColor = '#cbd5e1';
-        dropzone.style.backgroundColor = 'white';
-    });
-
-    dropzone.addEventListener('drop', (e) => {
-        e.preventDefault();
-        dropzone.style.borderColor = '#cbd5e1';
-        dropzone.style.backgroundColor = 'white';
-        handleFiles(e.dataTransfer.files);
-    });
-}
-
-function handleFiles(files) {
-    if (!files || files.length === 0) return;
-
-    Array.from(files).forEach(file => {
-        if (!file.type.startsWith('image/')) return;
-
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            const newPhoto = {
-                src: e.target.result,
-                full: e.target.result,
-                title: file.name.replace(/\.[^/.]+$/, ""), // Remove extension
-                collection: "Imported", // Default collection for imports
-                alt: file.name
-            };
-
-            photos.push(newPhoto);
-
-            // Re-render
-            renderGallery('all'); // Refresh gallery
-            renderCollections();  // Refresh collections
-            renderFeatured();     // Refresh home
-        };
-        reader.readAsDataURL(file);
-    });
-}
-
-// ===========================
 // Rendering Functions
 // ===========================
 
@@ -161,7 +213,7 @@ function renderFeatured() {
     const featuredPhotos = photos.slice(0, 3);
 
     if (featuredPhotos.length === 0) {
-        container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #888;">No featured photos yet. Import some in the Gallery!</p>';
+        container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #888;">No photos available.</p>';
     } else {
         container.innerHTML = featuredPhotos.map(photo => createPhotoCard(photo)).join('');
         attachLightboxListeners(container);
@@ -175,38 +227,29 @@ function renderGallery(filterCategory) {
 
     if (!container) return;
 
-    // Update Filters
+    // Build Filters if they don't exist
     if (filterContainer) {
-        const collections = [...new Set(photos.map(p => p.collection))];
+        filterContainer.innerHTML = ''; // Reset to ensure order
 
-        // Remove old dynamic buttons (keeping "All")
-        const existingBtns = filterContainer.querySelectorAll('.filter-btn:not([data-filter="all"])');
-        existingBtns.forEach(btn => btn.remove());
+        const categories = ['All', ...GALLERY_CATEGORIES];
 
-        collections.forEach(col => {
+        categories.forEach(col => {
             const btn = document.createElement('button');
             btn.className = 'filter-btn';
             btn.textContent = col;
-            btn.setAttribute('data-filter', col);
-            if (filterCategory === col) btn.classList.add('active');
+            const filterValue = col === 'All' ? 'all' : col;
+            btn.setAttribute('data-filter', filterValue);
+
+            const currentFilter = filterCategory === 'all' ? 'All' : filterCategory;
+            if (col === currentFilter || (col === 'All' && filterCategory === 'all')) {
+                btn.classList.add('active');
+            }
 
             btn.onclick = () => {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                renderGallery(col);
+                renderGallery(filterValue);
             };
             filterContainer.appendChild(btn);
         });
-
-        // Re-bind All
-        const allBtn = filterContainer.querySelector('[data-filter="all"]');
-        if (allBtn) {
-            allBtn.onclick = () => {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                allBtn.classList.add('active');
-                renderGallery('all');
-            };
-        }
     }
 
     // Filter Logic
@@ -216,7 +259,7 @@ function renderGallery(filterCategory) {
 
     // Render Grid
     if (filteredPhotos.length === 0) {
-        container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #888; margin-top: 20px;">No photos found. Use the import area above to add photos.</p>';
+        container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #888; margin-top: 20px;">No photos found in this collection.</p>';
     } else {
         container.innerHTML = filteredPhotos.map(photo => createPhotoCard(photo)).join('');
         attachLightboxListeners(container);
@@ -228,27 +271,29 @@ function renderCollections() {
     const container = document.getElementById('collections-grid');
     if (!container) return;
 
-    const collections = [...new Set(photos.map(p => p.collection))];
+    // Use the fixed categories
+    const categories = GALLERY_CATEGORIES;
 
-    if (collections.length === 0) {
-        container.innerHTML = '<p style="text-align: center; color: #888;">No collections yet.</p>';
-    } else {
-        container.innerHTML = collections.map(colName => {
-            // Find representative photo (first one in collection)
-            const coverPhoto = photos.find(p => p.collection === colName);
-            const count = photos.filter(p => p.collection === colName).length;
+    container.innerHTML = categories.map(colName => {
+        // Find representative photo or use placeholder
+        const coverPhoto = photos.find(p => p.collection === colName);
+        const count = photos.filter(p => p.collection === colName).length;
 
-            return `
-                <div class="collection-card" onclick="openCollection('${colName}')">
-                    <img src="${coverPhoto.src}" alt="${colName} Collection" loading="lazy">
-                    <div class="collection-info">
-                        <h3>${colName}</h3>
-                        <div class="collection-count">${count} photos</div>
-                    </div>
+        let imgSrc = 'images/logo.jpg';
+        if (coverPhoto) {
+            imgSrc = coverPhoto.src;
+        }
+
+        return `
+            <div class="collection-card" onclick="openCollection('${colName}')">
+                <img src="${imgSrc}" alt="${colName} Collection" loading="lazy">
+                <div class="collection-info">
+                    <h3>${colName}</h3>
+                    <div class="collection-count">${count} photos</div>
                 </div>
-            `;
-        }).join('');
-    }
+            </div>
+        `;
+    }).join('');
 }
 
 // Helper to switch to gallery view filtered by collection
@@ -257,11 +302,10 @@ window.openCollection = function (collectionName) {
     const galleryLink = document.querySelector('[data-target="gallery"]');
     if (galleryLink) galleryLink.click();
 
-    // Simulate click on filter button
+    // Trigger filter
     setTimeout(() => {
-        const filterBtn = document.querySelector(`.filter-btn[data-filter="${collectionName}"]`);
-        if (filterBtn) filterBtn.click();
-    }, 100);
+        renderGallery(collectionName);
+    }, 50);
 };
 
 function createPhotoCard(photo) {
@@ -296,6 +340,13 @@ function initLightbox() {
     // Close on background click
     lightbox.addEventListener('click', (e) => {
         if (e.target === lightbox) {
+            lightbox.classList.remove('active-lightbox');
+        }
+    });
+
+    // Keyboard support
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
             lightbox.classList.remove('active-lightbox');
         }
     });
