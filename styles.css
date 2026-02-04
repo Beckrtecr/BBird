@@ -443,10 +443,14 @@ h2 {
 .about-container {
     display: flex;
     align-items: center;
-    gap: 3rem;
+    gap: 2rem;
     text-align: left;
-    max-width: 900px;
+    max-width: 1200px;
     margin: 0 auto;
+}
+
+.about-container .about-text {
+    flex: 1;
 }
 
 /* ===========================
