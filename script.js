@@ -7,92 +7,11 @@
 // Photo Data Configuration
 // Categories: Nature, Still Life, Urban, Animals, Portrait
 // ===========================
-const photos = [
-    {
-        src: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=800&q=80",
-        full: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1600&q=80",
-        title: "Misty Mountains",
-        collection: "Nature",
-        alt: "Misty Mountains landscape"
-    },
-    {
-        src: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=800&q=80",
-        full: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1600&q=80",
-        title: "Forest Path",
-        collection: "Nature",
-        alt: "Sunlight through forest trees"
-    },
-    {
-        src: "https://images.unsplash.com/photo-1453791052107-5c843da62d97?auto=format&fit=crop&w=800&q=80",
-        full: "https://images.unsplash.com/photo-1453791052107-5c843da62d97?auto=format&fit=crop&w=1600&q=80",
-        title: "Deep Woods",
-        collection: "Nature",
-        alt: "Deep mysterious woods"
-    },
-    {
-        src: "https://images.unsplash.com/photo-1496545672447-f699b503d270?auto=format&fit=crop&w=800&q=80",
-        full: "https://images.unsplash.com/photo-1496545672447-f699b503d270?auto=format&fit=crop&w=1600&q=80",
-        title: "Vintage Camera",
-        collection: "Still Life",
-        alt: "Vintage camera on table"
-    },
-    {
-        src: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80",
-        full: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1600&q=80",
-        title: "Workspace",
-        collection: "Still Life",
-        alt: "Minimalist workspace"
-    },
-    {
-        src: "https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?auto=format&fit=crop&w=800&q=80",
-        full: "https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?auto=format&fit=crop&w=1600&q=80",
-        title: "Morning Coffee",
-        collection: "Still Life",
-        alt: "Coffee cup on wooden table"
-    },
-    {
-        src: "https://images.unsplash.com/photo-1449824913929-2b3a64192581?auto=format&fit=crop&w=800&q=80",
-        full: "https://images.unsplash.com/photo-1449824913929-2b3a64192581?auto=format&fit=crop&w=1600&q=80",
-        title: "City Lights",
-        collection: "Urban",
-        alt: "City skyline at night"
-    },
-    {
-        src: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=800&q=80",
-        full: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=1600&q=80",
-        title: "Urban Canyon",
-        collection: "Urban",
-        alt: "Tall buildings in city"
-    },
-    {
-        src: "https://images.unsplash.com/photo-1475855581690-80accde3ae2b?auto=format&fit=crop&w=800&q=80",
-        full: "https://images.unsplash.com/photo-1475855581690-80accde3ae2b?auto=format&fit=crop&w=1600&q=80",
-        title: "Street Life",
-        collection: "Urban",
-        alt: "Busy city street"
-    },
-    {
-        src: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=800&q=80",
-        full: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=1600&q=80",
-        title: "Portrait Mood",
-        collection: "Portrait",
-        alt: "Moody portrait of woman"
-    },
-    {
-        src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80",
-        full: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=1600&q=80",
-        title: "Male Portrait",
-        collection: "Portrait",
-        alt: "Portrait of man smiling"
-    },
-    {
-        src: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=800&q=80",
-        full: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=1600&q=80",
-        title: "Studio Shot",
-        collection: "Portrait",
-        alt: "High contrast portrait"
-    }
-];
+// ===========================
+// Photo Data Configuration
+// Loaded from index.html (window.sitePhotos)
+// ===========================
+const photos = window.sitePhotos || [];
 
 // Fixed Categories (Total 5 including All: All, Nature, Still Life, Urban, Portrait)
 const GALLERY_CATEGORIES = ['Nature', 'Still Life', 'Urban', 'Portrait'];
@@ -195,6 +114,11 @@ function initNavigation() {
                 }
             });
 
+            // Reset Collection View if leaving collections
+            if (targetId !== 'collections') {
+                closeCollection();
+            }
+
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     });
@@ -296,17 +220,48 @@ function renderCollections() {
     }).join('');
 }
 
-// Helper to switch to gallery view filtered by collection
+// Helper to switch to specific collection view
 window.openCollection = function (collectionName) {
-    // Switch to gallery tab
-    const galleryLink = document.querySelector('[data-target="gallery"]');
-    if (galleryLink) galleryLink.click();
+    const mainView = document.getElementById('collections-main-view');
+    const detailView = document.getElementById('collection-detail-view');
+    const detailGrid = document.getElementById('collection-detail-grid');
+    const detailTitle = document.getElementById('collection-detail-title');
 
-    // Trigger filter
-    setTimeout(() => {
-        renderGallery(collectionName);
-    }, 50);
+    if (mainView && detailView && detailGrid) {
+        // Hide main view, show detail view
+        mainView.style.display = 'none';
+        detailView.style.display = 'block';
+
+        // Update Title
+        if (detailTitle) detailTitle.textContent = collectionName;
+
+        // Filter photos for this collection
+        const filteredPhotos = photos.filter(p => p.collection === collectionName);
+
+        // Render Grid
+        if (filteredPhotos.length === 0) {
+            detailGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #888; margin-top: 20px;">No photos found in this collection.</p>';
+        } else {
+            detailGrid.innerHTML = filteredPhotos.map(photo => createPhotoCard(photo)).join('');
+            attachLightboxListeners(detailGrid);
+        }
+
+        // Scroll to top of section
+        const section = document.getElementById('collections');
+        if (section) section.scrollIntoView({ behavior: 'smooth' });
+    }
 };
+
+window.closeCollection = function () {
+    const mainView = document.getElementById('collections-main-view');
+    const detailView = document.getElementById('collection-detail-view');
+
+    if (mainView && detailView) {
+        // Hide detail view, show main view
+        detailView.style.display = 'none';
+        mainView.style.display = 'block';
+    }
+}
 
 function createPhotoCard(photo) {
     return `
