@@ -205,9 +205,12 @@ function renderGallery(filterCategory) {
 
 
 function createPhotoCard(photo) {
+    const src = encodeURI(photo.src);
+    const full = encodeURI(photo.full || photo.src);
+
     return `
-        <div class="photo-item" data-full="${photo.full}" data-title="${photo.title}">
-            <img src="${photo.src}" alt="${photo.alt}" loading="lazy">
+        <div class="photo-item" data-full="${full}" data-title="${photo.title}">
+            <img src="${src}" alt="${photo.alt}" loading="lazy">
             <div class="photo-overlay">
                 <h4>${photo.title}</h4>
                 <small>${photo.collection}</small>
