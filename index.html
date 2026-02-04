@@ -148,9 +148,6 @@
                 </div>
             </header>
 
-            <!-- Import Section -->
-
-
             <div id="gallery-grid" class="gallery-grid">
                 <!-- Javascript will populate this -->
             </div>
@@ -158,12 +155,30 @@
 
         <!-- Collections Section -->
         <section id="collections" class="section">
-            <header class="section-header">
-                <h2>Collections</h2>
-            </header>
-            <div id="collections-grid" class="collections-grid">
-                <!-- Javascript will populate this -->
+
+            <!-- Main Collection Grid View -->
+            <div id="collections-main-view">
+                <header class="section-header">
+                    <h2>Collections</h2>
+                </header>
+                <div id="collections-grid" class="collections-grid">
+                    <!-- Javascript will populate this -->
+                </div>
             </div>
+
+            <!-- Single Collection Detail View (Hidden by default) -->
+            <div id="collection-detail-view" style="display: none;">
+                <header class="section-header">
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <button onclick="closeCollection()" class="back-btn">← Back</button>
+                        <h2 id="collection-detail-title">Collection Name</h2>
+                    </div>
+                </header>
+                <div id="collection-detail-grid" class="gallery-grid">
+                    <!-- Javascript will populate this -->
+                </div>
+            </div>
+
         </section>
 
         <!-- About Section -->
@@ -210,6 +225,30 @@
         <img class="lightbox-content" id="lightbox-img">
         <div id="lightbox-caption"></div>
     </div>
+
+    <!-- ==================================================================================
+         PHOTO CONFIGURATION ZONE
+         Add your photos below. Copy the block { ... } and paste it to add a new photo.
+         Place your image files in the "images" folder.
+         ================================================================================== -->
+    <script>
+        window.sitePhotos = [
+
+            // EXAMPLE PHOTO (You can copy this block):
+            /*
+            {
+                src: "images/example.jpg",      // Path to your image in the images folder
+                full: "images/example.jpg",     // Usually the same unless you have a high-res version
+                title: "My Photo Title",        // Title shown on hover
+                collection: "Nature",           // Category: Nature, Still Life, Urban, Portrait, etc.
+                alt: "Description of photo"     // For accessibility
+            },
+            */
+
+            // START ADDING YOUR PHOTOS BELOW THIS LINE:
+
+        ];
+    </script>
 
     <script src="script.js"></script>
 </body>
