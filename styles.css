@@ -6,17 +6,17 @@
  */
 
 :root {
-    --primary-color: #0077b6;
-    --primary-hover: #035e8c;
-    --secondary-blue: #90e0ef;
+    --primary-color: #4da6ff;
+    --primary-hover: #2d8ccc;
+    --secondary-blue: #b3d9ff;
     --bg-color: #ffffff;
-    --bg-secondary: #f8f9fa;
-    --text-color: #333333;
-    --text-light: #666666;
-    --sidebar-bg: #0f172a;
-    /* Strong dark blue/slate */
-    --sidebar-text: #e2e8f0;
-    --sidebar-hover: rgba(255, 255, 255, 0.1);
+    --bg-secondary: #f0f7ff;
+    --text-color: #1a4d7a;
+    --text-light: #4d7a99;
+    --sidebar-bg: #e8f4ff;
+    /* Light blue background */
+    --sidebar-text: #1a4d7a;
+    --sidebar-hover: rgba(77, 166, 255, 0.15);
     --sidebar-width: 260px;
     --sidebar-collapsed-width: 80px;
     --topbar-height: 70px;
@@ -46,15 +46,15 @@ body {
     left: 0;
     width: 100%;
     height: var(--topbar-height);
-    background-color: #ffffff;
-    border-bottom: 1px solid #e1e4e8;
+    background: linear-gradient(135deg, #ffffff 0%, #e8f4ff 100%);
+    border-bottom: 2px solid #4da6ff;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 2rem;
     z-index: 1100;
     /* Above sidebar */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 12px rgba(77, 166, 255, 0.15);
 }
 
 .top-bar-left,
@@ -95,7 +95,8 @@ body {
 .logo-text {
     font-weight: 700;
     font-size: 1.5rem;
-    color: var(--primary-color);
+    color: #2d8ccc;
+    letter-spacing: 1px;
 }
 
 /* ===========================
