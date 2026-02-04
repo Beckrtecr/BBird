@@ -72,18 +72,7 @@
                         <span class="text">Gallery</span>
                     </a>
                 </li>
-                <li>
-                    <a href="#collections" class="nav-link" data-target="collections">
-                        <span class="icon">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z">
-                                </path>
-                            </svg>
-                        </span>
-                        <span class="text">Collections</span>
-                    </a>
-                </li>
+
                 <li>
                     <a href="#about" class="nav-link" data-target="about">
                         <span class="icon">
@@ -153,33 +142,7 @@
             </div>
         </section>
 
-        <!-- Collections Section -->
-        <section id="collections" class="section">
 
-            <!-- Main Collection Grid View -->
-            <div id="collections-main-view">
-                <header class="section-header">
-                    <h2>Collections</h2>
-                </header>
-                <div id="collections-grid" class="collections-grid">
-                    <!-- Javascript will populate this -->
-                </div>
-            </div>
-
-            <!-- Single Collection Detail View (Hidden by default) -->
-            <div id="collection-detail-view" style="display: none;">
-                <header class="section-header">
-                    <div style="display: flex; align-items: center; gap: 1rem;">
-                        <button onclick="closeCollection()" class="back-btn">← Back</button>
-                        <h2 id="collection-detail-title">Collection Name</h2>
-                    </div>
-                </header>
-                <div id="collection-detail-grid" class="gallery-grid">
-                    <!-- Javascript will populate this -->
-                </div>
-            </div>
-
-        </section>
 
         <!-- About Section -->
         <section id="about" class="section">
@@ -194,7 +157,8 @@
                     <div class="about-text">
                         <h3>Hi, I'm the photographer behind BBird.</h3>
                         <p>My name is Beckham Harris and I specialize in capturing moments that will make you look at
-                            them and just say wow. I am 11 years old and I love taking photos of nature bird and all
+                            them and just say wow. I am <span id="my-age">11</span> years old and I love taking photos
+                            of nature bird and all
                             that kind of stuff. I hope you enjoy my photos.</p>
                     </div>
                 </div>

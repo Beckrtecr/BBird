@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initial Render
     renderFeatured();
     renderGallery('all');
-    renderCollections();
+    updateAge();
 
     initLightbox();
 });
@@ -35,6 +35,24 @@ document.addEventListener('DOMContentLoaded', () => {
 function initYear() {
     const yearEl = document.getElementById('year');
     if (yearEl) yearEl.textContent = new Date().getFullYear();
+}
+
+function updateAge() {
+    const ageEl = document.getElementById('my-age');
+    if (!ageEl) return;
+
+    // Birthdate: December 16, 2014 (Month is 0-indexed, so 11 is December)
+    const birthDate = new Date(2014, 11, 16);
+    const today = new Date();
+
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+
+    ageEl.textContent = age;
 }
 
 // Sidebar Toggle Logic
@@ -88,9 +106,6 @@ function initNavigation() {
                     case 'gallery':
                         topBarTitle.textContent = "Gallery";
                         break;
-                    case 'collections':
-                        topBarTitle.textContent = "Collections";
-                        break;
                     case 'about':
                         topBarTitle.textContent = "About";
                         break;
@@ -114,10 +129,7 @@ function initNavigation() {
                 }
             });
 
-            // Reset Collection View if leaving collections
-            if (targetId !== 'collections') {
-                closeCollection();
-            }
+
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
@@ -190,78 +202,7 @@ function renderGallery(filterCategory) {
     }
 }
 
-// Render Collections Page
-function renderCollections() {
-    const container = document.getElementById('collections-grid');
-    if (!container) return;
 
-    // Use the fixed categories
-    const categories = GALLERY_CATEGORIES;
-
-    container.innerHTML = categories.map(colName => {
-        // Find representative photo or use placeholder
-        const coverPhoto = photos.find(p => p.collection === colName);
-        const count = photos.filter(p => p.collection === colName).length;
-
-        let imgSrc = 'images/logo.jpg';
-        if (coverPhoto) {
-            imgSrc = coverPhoto.src;
-        }
-
-        return `
-            <div class="collection-card" onclick="openCollection('${colName}')">
-                <img src="${imgSrc}" alt="${colName} Collection" loading="lazy">
-                <div class="collection-info">
-                    <h3>${colName}</h3>
-                    <div class="collection-count">${count} photos</div>
-                </div>
-            </div>
-        `;
-    }).join('');
-}
-
-// Helper to switch to specific collection view
-window.openCollection = function (collectionName) {
-    const mainView = document.getElementById('collections-main-view');
-    const detailView = document.getElementById('collection-detail-view');
-    const detailGrid = document.getElementById('collection-detail-grid');
-    const detailTitle = document.getElementById('collection-detail-title');
-
-    if (mainView && detailView && detailGrid) {
-        // Hide main view, show detail view
-        mainView.style.display = 'none';
-        detailView.style.display = 'block';
-
-        // Update Title
-        if (detailTitle) detailTitle.textContent = collectionName;
-
-        // Filter photos for this collection
-        const filteredPhotos = photos.filter(p => p.collection === collectionName);
-
-        // Render Grid
-        if (filteredPhotos.length === 0) {
-            detailGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #888; margin-top: 20px;">No photos found in this collection.</p>';
-        } else {
-            detailGrid.innerHTML = filteredPhotos.map(photo => createPhotoCard(photo)).join('');
-            attachLightboxListeners(detailGrid);
-        }
-
-        // Scroll to top of section
-        const section = document.getElementById('collections');
-        if (section) section.scrollIntoView({ behavior: 'smooth' });
-    }
-};
-
-window.closeCollection = function () {
-    const mainView = document.getElementById('collections-main-view');
-    const detailView = document.getElementById('collection-detail-view');
-
-    if (mainView && detailView) {
-        // Hide detail view, show main view
-        detailView.style.display = 'none';
-        mainView.style.display = 'block';
-    }
-}
 
 function createPhotoCard(photo) {
     return `
