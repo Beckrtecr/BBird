@@ -11,8 +11,8 @@
 // Initialize photos array from window.sitePhotos
 let photos = window.sitePhotos || [];
 
-// Fixed Categories (Total 5 including All: All, Nature, Still Life, Urban, Portrait)
-const GALLERY_CATEGORIES = ['Nature', 'Still Life', 'Urban', 'Portrait'];
+// Fixed Categories (Total 5 including All: All, Nature, other, Portrait)
+const GALLERY_CATEGORIES = ['Nature', 'Portrait', 'Other'];
 
 // ===========================
 // Initialization & Navigation
