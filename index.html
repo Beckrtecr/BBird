@@ -124,38 +124,8 @@
 
             <div class="featured-section">
                 <h2>Featured Work</h2>
-                <script>
-        window.sitePhotos = [
-                {
-                src: "images/the_cousins!!!.png",
-                full: "images/the_cousins!!!.png",
-                title: "Cousins Moment",
-                collection: "Portrait",
-                alt: "Cousins together"
-            },
-            {
-                src: "images/foggy_Bay.JPG",
-                full: "images/foggy_Bay.JPG",
-                title: "Foggy Bay",
-                collection: "Nature",
-                alt: "Foggy view of the bay"
-            },
-            {
-                src: "images/one_Little_pinecone.JPG",
-                full: "images/one_Little_pinecone.JPG",
-                title: "Little Pinecone",
-                collection: "Nature",
-                alt: "A small pinecone in nature"
-            },
-            {
-                src: "images/yellow-blurry-Bay-sunset.JPG",
-                full: "images/yellow-blurry-Bay-sunset.JPG",
-                title: "Bay Sunset",
-                collection: "Nature",
-                alt: "Blurry sunset over the bay with yellow tones"
-            },
-            ];
-    </script>
+                <!-- Featured Photos populated by JS -->
+                <div id="featured-grid" class="gallery-grid"></div>
             </div>
         </section>
 
@@ -315,6 +285,14 @@
                 title: "Harry Potter",
                 collection: "Portrait",
                 alt: "Harry Potter themed photo"
+            },
+            {
+                src: "images/seabeck.JPG",      // Path to your image in the images folder
+                full: "images/seabeck.JPG",     // Usually the same unless you have a high-res version
+                title: "Seabeck",               // Title shown on hover
+                collection: "Nature", 
+                collection: "Other",           // Category: Nature, Still Life, Urban, Portrait, etc.
+                alt: "Seabeck view of the bay."     // For accessibility
             },
 
         ];
